@@ -55,8 +55,11 @@ export async function POST(req: NextRequest) {
 
     const reply = r.output_text?.trim() || "…";
     return NextResponse.json({ reply });
-  } catch (e: any) {
-    console.error("API /chat error:", e?.message || e);
-    return NextResponse.json({ error: String(e?.message || e) }, { status: 500 });
-  }
+  // 末尾あたり
+} catch (err: unknown) {
+  const message = err instanceof Error ? err.message : String(err);
+  console.error("API /chat error:", message, err);
+  return NextResponse.json({ error: message }, { status: 500 });
+}
+
 }

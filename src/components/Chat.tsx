@@ -48,17 +48,15 @@ export default function Chat({ characterId }: { characterId: HorrorId }) {
         ...m,
         { role: "assistant", content: data.reply || "…" },
       ]);
-    } catch (e: any) {
-      setMessages((m) => [
-        ...m,
-        {
-          role: "assistant",
-          content: `（エラー）${e?.message ?? "送信に失敗しました"}`,
-        },
-      ]);
-    } finally {
-      setLoading(false);
-    }
+    } catch (err: unknown) {
+  const message = err instanceof Error ? err.message : String(err);
+  setMessages((m) => [
+    ...m,
+    { role: "assistant", content: `（エラー）${message}` },
+  ]);
+} finally {
+  setLoading(false);
+}
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
