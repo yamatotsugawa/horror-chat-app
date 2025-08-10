@@ -31,8 +31,14 @@ export default function CharacterCard({
         />
       </div>
       <div className="meta">
-        <div className="name">{c.name}</div>
-        <div className="tagline">{c.tagline}</div>
+        {/* 名前は真っ白 */}
+        <div className="name" style={{ color: "rgba(255,255,255,0.85)" }}>
+          {c.name}
+        </div>
+        {/* 説明は少し薄い白 */}
+        <div className="tagline" style={{ color: "rgba(255,255,255,0.85)" }}>
+          {c.tagline}
+        </div>
       </div>
     </button>
   );
